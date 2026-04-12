@@ -1,0 +1,17 @@
+# Don't send these to Docker (saves build time and image size)
+data/
+frontend/
+.git/
+.github/
+__pycache__/
+*.pyc
+.env
+.env.*
+secrets.txt
+plan.txt
+.venv/
+venv/
+.DS_Store
+*.md
+train.py
+predict.py

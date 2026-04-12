@@ -35,7 +35,12 @@ def load_model(model_path: str, device: torch.device):
 
 
 def predict(image_path: str, model_path: str, top_k: int):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+    elif torch.backends.mps.is_available():
+        device = torch.device("mps")
+    else:
+        device = torch.device("cpu")
     model, classes = load_model(model_path, device)
 
     image  = Image.open(image_path).convert("RGB")

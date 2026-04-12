@@ -21,6 +21,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from PIL import Image
 from torchvision import models, transforms
@@ -34,7 +35,13 @@ from torchvision import models, transforms
 MODEL_PATH = "models/best_model.pth"
 
 # Use GPU if available, otherwise CPU
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# Priority: CUDA (NVIDIA) > MPS (Apple Silicon) > CPU
+if torch.cuda.is_available():
+    DEVICE = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    DEVICE = torch.device("mps")
+else:
+    DEVICE = torch.device("cpu")
 
 # The full list of 38 PlantVillage class names (alphabetically sorted).
 # This is the complete dataset — your model may use a subset of these
@@ -167,6 +174,16 @@ app = FastAPI(
     title="Crop Disease Classifier",
     description="Upload a leaf image to detect crop diseases using MobileNetV2",
     version="1.0.0",
+)
+
+# Allow the React frontend to call this API from a different origin (domain/port)
+# Without this, browsers block cross-origin requests for security reasons
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],          # In production, replace "*" with your Vercel URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Global variables to hold the model and class names

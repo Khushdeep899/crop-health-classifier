@@ -1,3 +1,6 @@
+# Project plan (private tracking)
+plan.txt
+
 # Secrets — never commit credentials
 secrets.txt
 *.env
