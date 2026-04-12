@@ -32,8 +32,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Step 4: Copy and install Python dependencies first
 # We do this BEFORE copying our code so Docker can cache this layer.
 # If only our code changes (not requirements.txt), Docker skips this step.
+# Install CPU-only PyTorch first (saves ~1.8 GB vs the default CUDA build)
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu \
+    && pip install --no-cache-dir -r requirements.txt
 
 # Step 5: Copy our application code and trained model
 COPY inference.py .
