@@ -12,9 +12,8 @@ kaggle.json
 data/*
 !data/.gitkeep
 
-# Trained models
-models/*
-!models/.gitkeep
+# Trained models (keep .pth files — small enough for GitHub)
+models/*.gitkeep
 
 # Python
 __pycache__/
