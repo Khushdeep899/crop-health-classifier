@@ -1,0 +1,30 @@
+# Secrets — never commit credentials
+secrets.txt
+*.env
+.env
+kaggle.json
+.kaggle/
+
+# Dataset (too large for git)
+data/*
+!data/.gitkeep
+
+# Trained models
+models/*
+!models/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/

@@ -24,8 +24,11 @@ INFER_TRANSFORMS = transforms.Compose([
 def load_model(model_path: str, device: torch.device):
     checkpoint = torch.load(model_path, map_location=device)
     classes = checkpoint["classes"]
-    m = models.resnet50(weights=None)
-    m.fc = nn.Linear(m.fc.in_features, len(classes))
+    num_classes = len(classes)
+
+    # Rebuild the same MobileNetV2 architecture used during training
+    m = models.mobilenet_v2(weights=None)
+    m.classifier[1] = nn.Linear(m.classifier[1].in_features, num_classes)
     m.load_state_dict(checkpoint["model_state"])
     m.to(device).eval()
     return m, classes
