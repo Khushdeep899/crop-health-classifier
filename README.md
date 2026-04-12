@@ -73,7 +73,7 @@ python predict.py leaf.jpg --top_k 3
 
 ## Model
 
-- **Backbone**: ResNet-50 pretrained on ImageNet
-- **Fine-tuning**: Only the final FC layer is trained (frozen backbone)
+- **Backbone**: MobileNetV2 pretrained on ImageNet
+- **Fine-tuning**: Only the final classifier layer is trained (frozen backbone)
 - **Input size**: 224×224
 - **Normalization**: ImageNet mean/std
