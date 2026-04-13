@@ -1,6 +1,4 @@
-# Don't send these to Docker (saves build time and image size)
 data/
-frontend/
 .git/
 .github/
 __pycache__/

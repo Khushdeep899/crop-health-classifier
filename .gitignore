@@ -1,21 +1,15 @@
-# Project plan (private tracking)
 plan.txt
-
-# Secrets — never commit credentials
 secrets.txt
 *.env
 .env
 kaggle.json
 .kaggle/
 
-# Dataset (too large for git)
 data/*
 !data/.gitkeep
 
-# Trained models (keep .pth files — small enough for GitHub)
 models/*.gitkeep
 
-# Python
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -23,10 +17,7 @@ __pycache__/
 venv/
 env/
 
-# IDE
 .vscode/
 .idea/
 .DS_Store
-
-# Jupyter
 .ipynb_checkpoints/
